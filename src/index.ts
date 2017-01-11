@@ -6,7 +6,7 @@ let dbx = new Dropbox({
     accessToken: process.env.DB_ACCESS_TOKEN
 });
 
-let all = {};
+let all = { type: 'folder' };
 
 let promises: Promise<any>[] = [];
 
@@ -56,13 +56,17 @@ let dir = (path: string, item: any) => {
 };
 
 let sizes = (item: any) => {
-    item.size = _.reduce(item.children, (child: any, sum: number) => {
-        if (item.type === 'folder') {
-            sum += sizes(child);
-        } else {
-            sum += item.size;
-        }
-    }, 0);
+    if (item.type === 'folder') {
+        item.size = _.reduce(item.children, (sum: number, child: any) => {
+            if (child.type === 'folder') {
+                sum += sizes(child);
+            } else {
+                sum += child.size;
+            }
+
+            return sum;
+        }, 0);
+    }
 
     return item.size;
 };

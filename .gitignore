@@ -1,0 +1,9 @@
+node_modules
+typings
+coverage
+
+src/**/*.js
+src/**/*.js.map
+
+run.sh
+dbtree.json

@@ -1,0 +1,42 @@
+{
+  "name": "dbtree",
+  "version": "1.0.0",
+  "description": "",
+  "author": "R. Somerfield",
+  "license": "ISC",
+  "main": "src/index.js",
+  "precommit": {
+    "tasks": [
+      "npm run precommit"
+    ]
+  },
+  "scripts": {
+    "compile": "tsc",
+    "compile:watch": "tsc -w",
+    "postinstall": "npm run precommit:install && npm run compile",
+    "posttest": "istanbul check-coverage --statements 100 --functions 100 --branches 100 --lines 100; remap-istanbul -i coverage/coverage.json -o coverage -t html",
+    "precommit": "npm run build && npm run test",
+    "precommit:install": "precommit install",
+    "precommit:uninstall": "precommit remove",
+    "start": "node src/index.js",
+    "test": "istanbul cover _mocha src"
+  },
+  "dependencies": {
+    "bluebird": "^3.4.6",
+    "dropbox": "^2.5.0"
+  },
+  "devDependencies": {
+    "@types/bluebird": "^3.0.36",
+    "@types/chai": "^3.4.34",
+    "@types/mocha": "^2.2.33",
+    "@types/node": "0.0.2",
+    "chai": "^3.5.0",
+    "istanbul": "^0.4.5",
+    "mocha": "^3.0.2",
+    "precommit": "^1.2.0",
+    "remap-istanbul": "^0.7.0",
+    "source-map-support": "^0.4.0",
+    "tslint": "^4.0.2",
+    "typescript": "^2.0.10"
+  }
+}
